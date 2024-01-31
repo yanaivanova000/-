@@ -1,4 +1,4 @@
-describe('Saucedemo', () => {
+1. describe('Saucedemo', () => {
   it('should be able to login', () => {
     cy.visit('https://www.saucedemo.com/')
     cy.get('[data-test=username]').type('standard_user')
@@ -38,7 +38,7 @@ describe('Saucedemo', () => {
 
 
 2. Проверка, что все элементы на странице "Cart" отображаются корректно.
-JavaScript
+
 
 describe('Saucedemo', () => {
   it('should display all items in cart', () => {
@@ -49,7 +49,7 @@ describe('Saucedemo', () => {
 
 
 3. Проверка, что поиск работает корректно.
-JavaScript
+
 describe('Saucedemo', () => {
   it('should search for items', () => {
     cy.visit('https://www.saucedemo.com/inventory.html')
@@ -60,7 +60,7 @@ describe('Saucedemo', () => {
 
 
 4. Проверка, что сортировка работает корректно.
-JavaScript
+
 describe('Saucedemo', () => {
   it('should sort items by price', () => {
     cy.visit('https://www.saucedemo.com/inventory.html')
@@ -74,11 +74,19 @@ describe('Saucedemo', () => {
 
 
 5. Проверка, что нельзя добавить товар в корзину без авторизации.
-JavaScript
+
 describe('Saucedemo', () => {
   it('should not be able to add items to cart without logging in', () => {
     cy.visit('https://www.saucedemo.com/inventory.html')
     cy.get('.inventory_item').first().find('.btn_primary').click()
     cy.url().should('include', '/login.html')
+  })
+})
+6. Проверка, что все элементы на странице "Products" отображаются корректно.
+
+describe('Saucedemo', () => {
+  it('should display all products', () => {
+    cy.visit('https://www.saucedemo.com/inventory.html')
+    cy.get('.inventory_item').should('have.length', 6)
   })
 })
