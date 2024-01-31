@@ -1,0 +1,30 @@
+describe('Saucedemo', () => {
+  it('should be able to login', () => {
+    cy.visit('https://www.saucedemo.com/')
+    cy.get('[data-test=username]').type('standard_user')
+    cy.get('[data-test=password]').type('secret_sauce')
+    cy.get('[data-test=login-button]').click()
+    cy.url().should('include', '/inventory.html')
+  })
+
+  it('should be able to add items to cart', () => {
+    cy.get('.inventory_item').first().find('.btn_primary').click()
+    cy.get('.shopping_cart_badge').should('have.text', '1')
+    cy.get('.inventory_item').last().find('.btn_primary').click()
+    cy.get('.shopping_cart_badge').should('have.text', '2')
+  })
+
+  it('should be able to checkout', () => {
+    cy.get('.shopping_cart_link').click()
+    cy.url().should('include', '/cart.html')
+    cy.get('.btn_action.checkout_button').click()
+    cy.url().should('include', '/checkout-step-one.html')
+    cy.get('[data-test=firstName]').type('John')
+    cy.get('[data-test=lastName]').type('Doe')
+    cy.get('[data-test=postalCode]').type('12345')
+    cy.get('.btn_primary.cart_button').click()
+    cy.url().should('include', '/checkout-step-two.html')
+    cy.get('.btn_action.cart_button').click()
+    cy.url().should('include', '/checkout-complete.html')
+  })
+})
